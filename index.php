@@ -1,5 +1,12 @@
 <!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
         <meta charset="UTF-8">
@@ -22,21 +29,21 @@ echo json_encode(array(
                 table.append('<caption><h1>Test application</h1></caption><tr><th>ID</th><th>First Name</th><th>Last Name</th><th>E-mail</th><th>Action</th></tr>');
                 //append people array into the table
                 $.each(people, function (i, value) {
-                    var valueToShowOnClick = 'Name: ' + value.first_name + '\n' + 'Email: ' + value.email;
-                    table.append('<tr><td>' + value.id + '</td>' + '<td>' + value.first_name + '</td>'
-                            + '<td>' + value.last_name + '</td>' + '<td>' + value.email + '</td>' +
-                            '<td><button class="showRow" type="button" value="' + valueToShowOnClick
-                            + '">Click Me!</button></td></tr>');
+                    var row = $('<tr/>');
+                    $.each(value, function (k, v) {
+                        row.append($('<td/>').text(v));
+                    });
+                    row.append($('<button class="showRow">Click Me!</button>'));
+               table.append(row);
                 });
+
                 //add table to the page
                 $('.content').append(table);
 
                 $('.showRow').click(function () {
-                    alert(this.value);
-                    //or instead of setting buttons value
-                    // var name = $(this).closest('tr').find('td:eq(1)').text();
-                    // var email = $(this).closest('tr').find('td:eq(3)').text();
-                    // alert('Name: ' + name+'\nEmail: ' + email);
+                     var name = $(this).closest('tr').find('td:eq(1)').text();
+                     var email = $(this).closest('tr').find('td:eq(3)').text();
+                     alert('Name: ' + name+'\nEmail: ' + email);
                 });
             });
         </script>
